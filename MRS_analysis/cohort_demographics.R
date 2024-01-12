@@ -264,7 +264,7 @@ if('mdd' %in% colnames(demographics_pheno)){
   print('The mdd variable:')
   print(table(demographics_pheno$mdd))
   demographics_pheno <- demographics_pheno %>%
-    mutate(mdd_pheno = case_when(mdd == 0 ~ 'Control', mdd==1 ~ 'Case', TRUE ~ NA))
+    mutate(mdd_pheno = case_when(mdd == 0 ~ 'Control', mdd==1 ~ 'Case', TRUE ~ NA_character_))
   
   print('The mdd named variable:')
   print(table(demographics_pheno$mdd_pheno))
