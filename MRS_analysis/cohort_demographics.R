@@ -312,7 +312,8 @@ if('mdd' %in% colnames(demographics_pheno)){
 
 ###############################################################################
 
-write.table(demo_summary, file.path(outdir, paste0(cohort, '_demo_summary.txt')), quote = F, row.names = F)
+# write.table(demo_summary, file.path(outdir, paste0(cohort, '_demo_summary.txt')), quote = F, row.names = F)
+fwrite(demo_summary, file.path(outdir, paste0(cohort, '_demo_summary.tsv')), sep = "\t")
 print(paste0('Saved the demographic summary to ', cohort, '_demo_summary.txt'))
 
 sink()
