@@ -115,12 +115,12 @@ print(paste0('Read in the Antidepressant exposure phenotype for ', cohort, ' aft
 # Covariates - Age, sex, Monocyte cell proportions, lymphocyte cell proportions,
 # AHRR methylation M values + top 10 Genetic principal components 
 
-assoc_mod <- glmer(as.factor(antidep)~ scale(AD_MRS) + scale(age) + scale(Mono) + 
+assoc_mod <- glm(as.factor(antidep)~ scale(AD_MRS) + scale(age) + scale(Mono) + 
                      scale(lymphocytes) + scale(cg05575921)+
                       as.factor(sex_coded) + scale(C1) + scale(C2) + 
                      scale(C3) + scale(C4) + scale(C5) + scale(C6) +
-                     scale(C7) + scale(C8) + scale(C9) + scale(C10) +
-                     (1|Batch), data = MRS_covs_pheno, family = 'binomial')
+                     scale(C7) + scale(C8) + scale(C9) + scale(C10), 
+                 data = MRS_covs_pheno, family = 'binomial')
 
 
 # Extract the fixed effect estimates, standard errors and p-value 
@@ -177,11 +177,11 @@ dev.off()
 
 print('Fitting a Null model')
 
-null_mod <- glmer(as.factor(antidep)~ scale(age) + scale(Mono) + scale(lymphocytes) + scale(cg05575921)+
+null_mod <- glm(as.factor(antidep)~ scale(age) + scale(Mono) + scale(lymphocytes) + scale(cg05575921)+
                       as.factor(sex_coded) + scale(C1) + scale(C2) + 
                     scale(C3) + scale(C4) + scale(C5) + scale(C6) +
-                    scale(C7) + scale(C8) + scale(C9) + scale(C10) +
-                    (1|Batch), data = MRS_covs_pheno, family = 'binomial')
+                    scale(C7) + scale(C8) + scale(C9) + scale(C10), 
+                data = MRS_covs_pheno, family = 'binomial')
 
 warnings()
 
