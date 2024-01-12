@@ -235,6 +235,6 @@ print(modelmetrics)
 print(paste0('Saving the model metric table to ',outdir, cohort, "_MRS_AD_logL.txt"))
 write.table(modelmetrics, file.path(outdir, paste0(cohort, "_MRS_AD_modmetrics.txt")), row.names = F, quote = F)
   
-
+sink()
 
 

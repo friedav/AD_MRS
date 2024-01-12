@@ -222,4 +222,4 @@ print(paste0('Saving the methylation risk score to ', outfile))
 colnames(MRS)[2] <- 'AD_MRS'
 write.table(MRS, outfile, row.names = F, quote = F)
 
-
+sink()
