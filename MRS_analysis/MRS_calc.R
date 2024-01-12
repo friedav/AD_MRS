@@ -35,7 +35,7 @@ pheno_fp=opt$pheno
 outdir <- opt$outdir
 
 # sink output to a text file with the same name as outpath with a '.log' extension
-sink(paste0(outdir, cohort, "_AD_MRS.log"))
+sink(file.path(outdir, paste0(cohort, "_AD_MRS.log")))
 print(paste0('Calculating a MRS for ', cohort))
 print(paste0('Read in the processed DNAm file from: ', DNAm_fp))
 print(paste0('Read in the weights file from: ', weights_fp))
@@ -105,12 +105,12 @@ missing_weights_plt <- ggplot(missingness_weights, aes(x = MissingPercentage, y 
 
 all_missing_plots <- ggarrange(missing_hist, missing_weights_plt, missing_plot, nrow = 3, ncol = 1)
 
-ggsave(paste0(outdir, cohort, "_MRS_cpg_missingness.png"), missing_plot, width = 8, height = 6, device='png', dpi=300)
-ggsave(paste0(outdir, cohort, "_MRS_cpg_missingness_hist.png"), missing_hist, width = 8, height = 6, device='png', dpi=300)
-ggsave(paste0(outdir, cohort, "_MRS_cpg_missingness_weights.png"), missing_weights_plt, width = 8, height = 6, device='png', dpi=300)
-ggsave(paste0(outdir, cohort, "_MRS_cpg_missingness_allplots.png"), all_missing_plots, width = 8, height = 6, device='png', dpi=300)
+ggsave(file.path(outdir, paste0(cohort, "_MRS_cpg_missingness.png")), missing_plot, width = 8, height = 6, device='png', dpi=300)
+ggsave(file.path(outdir, paste0(cohort, "_MRS_cpg_missingness_hist.png")), missing_hist, width = 8, height = 6, device='png', dpi=300)
+ggsave(file.path(outdir, paste0(cohort, "_MRS_cpg_missingness_weights.png")), missing_weights_plt, width = 8, height = 6, device='png', dpi=300)
+ggsave(file.path(outdir, paste0(cohort, "_MRS_cpg_missingness_allplots.png")), all_missing_plots, width = 8, height = 6, device='png', dpi=300)
 
-write.table(missing_percentage, paste0(outdir, cohort, '_cpg_missingness.txt'), row.names = F, quote = F)
+write.table(missing_percentage, file.path(outdir, paste0(cohort, '_cpg_missingness.txt')), row.names = F, quote = F)
 
 ###############################################################################
 
@@ -156,7 +156,7 @@ cpg_mrs_hist <- ggplot(num_cpgs, aes(x = cpgs_mrs)) +
   labs(x = 'Number of CpGs included in the MS', y = 'Frequency') + 
   ggtitle(paste0(cohort, ': Histogram of number of CpGs included in the MS'))
 
-ggsave(paste0(outdir, cohort, "_indiv_numcpgs_MRS.png"), cpg_mrs_hist, width = 8, height = 6, device='png', dpi=300)
+ggsave(file.path(outdir, paste0(cohort, "_indiv_numcpgs_MRS.png")), cpg_mrs_hist, width = 8, height = 6, device='png', dpi=300)
 
 ###############################################################################
 
@@ -174,7 +174,7 @@ MRS_dist <- ggplot(MRS, aes(x = weighted_sum)) +
   labs(x = 'Methylation Profile Score', y = 'Count')+
   ggtitle(cohort)
 
-ggsave(paste0(outdir, cohort, "_AD_MRS_overalldist.png"), MRS_dist, width = 8, height = 6, device='png', dpi=300)
+ggsave(file.path(outdir, paste0(cohort, "_AD_MRS_overalldist.png")), MRS_dist, width = 8, height = 6, device='png', dpi=300)
 
 # looking at Distribution in AD exposed and AD not exposed (violin plots)
 
@@ -209,14 +209,14 @@ MRS_pheno_dists <- ggplot(ad_pheno_MRS, aes(x = weighted_sum, fill = as.factor(a
   labs(x = 'Methylation Profile Score', y = 'Count', fill = 'Self-reported AD use') +
   ggtitle(cohort)
 
-ggsave(paste0(outdir, cohort, "_AD_MRS_phenodist.png"), MRS_pheno_dists, width = 8, height = 6, device='png', dpi=300)
+ggsave(file.path(outdir, paste0(cohort, "_AD_MRS_phenodist.png")), MRS_pheno_dists, width = 8, height = 6, device='png', dpi=300)
 
 ###############################################################################
 
 # Saving the methylation risk score 
 
 ###############################################################################
-outfile <- paste0(outdir, cohort, '_AD_MRS.txt')
+outfile <- file.path(outdir, paste0(cohort, '_AD_MRS.txt'))
 print(paste0('Saving the methylation risk score to ', outfile))
 
 colnames(MRS)[2] <- 'AD_MRS'

@@ -42,7 +42,7 @@ outdir <- opt$outdir # File path of output directory
 
 # sinking all output to a log file 
 
-sink(paste0(outdir, cohort, "_MRS_demographics.log"))
+sink(file.path(outdir, paste0(cohort, "_MRS_demographics.log")))
 
 
 ###############################################################################
@@ -315,7 +315,7 @@ if('mdd' %in% colnames(demographics_pheno)){
 
 ###############################################################################
 
-write.table(demo_summary, paste0(outdir, cohort, '_demo_summary.txt'), quote = F, row.names = F)
+write.table(demo_summary, file.path(outdir, paste0(cohort, '_demo_summary.txt')), quote = F, row.names = F)
 print(paste0('Saved the demographic summary to ', cohort, '_demo_summary.txt'))
 
 sink()

@@ -38,7 +38,7 @@ outdir <- opt$outdir # File path of output directory
 
 # sinking all output to a log file 
 
-sink(paste0(outdir, cohort, "_MRS_AD_assoc.log"))
+sink(file.path(outdir, paste0(cohort, "_MRS_AD_assoc.log")))
 
 ###############################################################################
 
@@ -136,7 +136,7 @@ assoc_coefs <- rownames_to_column(assoc_coefs, var = "Coefficient")
 # save the coefficients 
 print(paste0('Saving the full model coefficients to ', outdir, cohort, "_MRS_AD_coefficients.txt"))
 
-write.table(assoc_coefs, paste0(outdir, cohort, "_MRS_AD_coefficients.txt"), row.names = F, quote = F)
+write.table(assoc_coefs, file.path(outdir, paste0(cohort, "_MRS_AD_coefficients.txt")), row.names = F, quote = F)
 
 ###############################################################################
 
@@ -155,11 +155,11 @@ auc_value <- auc(roc_curve)
 
 # save ROC curve object for plotting all cohorts together
 print(paste0('Saving the ROC curve object for plotting all cohorts together to rds object: ', outdir, cohort, '_roc_curve.rds'))
-saveRDS(roc_curve, paste0(outdir, cohort, '_roc_curve.rds'))
+saveRDS(roc_curve, file.path(outdir, paste0(cohort, '_roc_curve.rds')))
 
 # ROC Graph 
 print(paste0('Saving the ROC curve for the cohort alone to ', outdir, cohort, '_assoc_ROC_curve.pdf'))
-cairo_pdf(file = paste0(outdir, cohort, '_assoc_ROC_curve.pdf'), width = 8, height = 6)
+cairo_pdf(file = file.path(outdir, paste0(cohort, '_assoc_ROC_curve.pdf')), width = 8, height = 6)
 plot.roc(roc_curve, col = "blue", lwd =2, main = paste0('ROC Curve: ', cohort))
 dev.off()
 
@@ -233,7 +233,7 @@ print(modelmetrics)
 # save R2 and model metric table 
   
 print(paste0('Saving the model metric table to ',outdir, cohort, "_MRS_AD_logL.txt"))
-write.table(modelmetrics, paste0(outdir, cohort, "_MRS_AD_modmetrics.txt"), row.names = F, quote = F)
+write.table(modelmetrics, file.path(outdir, paste0(cohort, "_MRS_AD_modmetrics.txt")), row.names = F, quote = F)
   
 
 

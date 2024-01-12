@@ -37,7 +37,7 @@ id_col <- opt$id_column # Vector of identifier columns
 analysis <- opt$analysis
 out_dir <- opt$outdir
 
-sink(paste0(out_dir, cohort, "_", analysis, "_DNAm_preproc.log"))
+sink(file.path(out_dir, paste0(cohort, "_", analysis, "_DNAm_preproc.log")))
 
 if (analysis == 'sig'){
   print('Preprocessing DNAm for the plotting the distributions of significant CpGs from the GS MWAS in an external cohort')
@@ -115,7 +115,7 @@ DNAm_dists <- ggplot(DNAm_both, aes(x = Mval, fill = CpG)) +
   facet_grid(Values~CpG) +
   ggtitle(paste0(cohort, ': Random sample of probes - standardisation'))
 
-ggsave(filename=paste0(out_dir, cohort, "_", analysis, "_DNAm_preproc_std.png"),DNAm_dists, 
+ggsave(filename=file.path(out_dir, paste0(cohort, "_", analysis, "_DNAm_preproc_std.png")),DNAm_dists, 
        width = 8, height = 6, device='png', dpi=300)
 
 
@@ -125,6 +125,6 @@ ggsave(filename=paste0(out_dir, cohort, "_", analysis, "_DNAm_preproc_std.png"),
 
 ###############################################################################
 
-outfile <- paste0(out_dir, cohort, "_", analysis, "_DNAm_preproc.txt")
+outfile <- file.path(out_dir, paste0(cohort, "_", analysis, "_DNAm_preproc.txt"))
 write.table(DNAm_MRS_std, outfile, row.names = F, quote = F)
 sink()
