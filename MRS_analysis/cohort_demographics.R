@@ -262,12 +262,12 @@ if('mdd' %in% colnames(demographics_pheno)){
   # summarise the MDD data 
   # print the table of mdd variable to log (to sanity check the conversion)
   print('The mdd variable:')
-  table(demographics_pheno$mdd)
+  print(table(demographics_pheno$mdd))
   demographics_pheno <- demographics_pheno %>%
     mutate(mdd_pheno = case_when(mdd == 0 ~ 'Control', mdd==1 ~ 'Case', TRUE ~ NA))
   
   print('The mdd named variable:')
-  table(demographics_pheno$mdd_pheno)
+  print(table(demographics_pheno$mdd_pheno))
   MDD_summary <- data.table(antidep = c(0, 1),
     Cases = c(demographics_pheno %>%
                              group_by(across(all_of(c('antidep', 'mdd_pheno')))) %>% 
