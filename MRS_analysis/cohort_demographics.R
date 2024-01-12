@@ -115,16 +115,16 @@ if(all(req_demo_vars %in% colnames(demographics))){
 # 5 (NA values? )
 
 
-print('Smoking variable')
-table(demographics$ever_smoke)
+# print('Smoking variable')
+# table(demographics$ever_smoke)
 
-demographics <- demographics %>% 
-  mutate(smoking_var = case_when(
-    ever_smoke == 1 ~ 'Current', 
-    ever_smoke == 2 ~ 'Former', 
-    ever_smoke == 3 ~ 'Former', 
-    ever_smoke == 4 ~ 'Never', 
-    TRUE ~ NA_character_))
+# demographics <- demographics %>% 
+#   mutate(smoking_var = case_when(
+#     ever_smoke == 1 ~ 'Current', 
+#     ever_smoke == 2 ~ 'Former', 
+#     ever_smoke == 3 ~ 'Former', 
+#     ever_smoke == 4 ~ 'Never', 
+#     TRUE ~ NA_character_))
 
 print('Smoking variable named')
 table(demographics$smoking_var)
@@ -167,8 +167,8 @@ phenotype_summary <- function(phenotype, file) {
                            ' (', signif(sd(age, na.rm = T),3), ')'), 
               bmi = paste0(signif(mean(bmi, na.rm = T),3), ' (', 
                            signif(sd(bmi, na.rm = T),3),')'), 
-              packyears= paste0(signif(mean(pack_years, na.rm = T),3),' (', 
-                                signif(sd(pack_years, na.rm = T),3), ')'), 
+              # packyears= paste0(signif(mean(pack_years, na.rm = T),3),' (', 
+              #                   signif(sd(pack_years, na.rm = T),3), ')'), 
               AD_MRS= paste0(signif(mean(AD_MRS, na.rm = T),3),' (', 
                                 signif(sd(AD_MRS, na.rm = T),3), ')'), 
               
@@ -241,7 +241,8 @@ phenotype_summary <- function(phenotype, file) {
                       pull(val))) %>% 
     as.data.frame()
   
-  summary <- summary %>% select(phenotype, n, age ,bmi,  Female, Male, current_smoking, former_smoking, never_smoking, packyears, AD_MRS)
+  summary <- summary %>% select(phenotype, n, age ,bmi,  Female, Male, current_smoking, former_smoking, never_smoking, #packyears, 
+                                AD_MRS)
   colnames(summary) <- c(phenotype, 'N', 'Age (%)','BMI (%)', 'Sex Female', 'Sex Male', 'Current smoker', 'Former smoker', 'Never smoker','Pack years', 'AD MRS (%)')
   return(summary)
 }
