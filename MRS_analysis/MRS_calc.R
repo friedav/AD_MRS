@@ -178,12 +178,10 @@ ggsave(file.path(outdir, paste0(cohort, "_AD_MRS_overalldist.png")), MRS_dist, w
 
 # looking at Distribution in AD exposed and AD not exposed (violin plots)
 
-if (endsWith(pheno_fp, '.csv')){
-ad_pheno <- read.csv(pheno_fp, header = T)
-} else if (endsWith(pheno_fp, '.txt')) {
-  ad_pheno <- read.table(pheno_fp, header = T)
+if (any(endsWith(pheno_fp, c(".csv", ".tsv", ".txt")))){
+  ad_pheno <- fread(pheno_fp) %>% as.data.frame()
 } else {
-  stop('Unsupported phenotype file, please provide the phenotype as a .csv or .txt file')
+  stop('Unsupported phenotype file, please provide the phenotype as a .csv, .tsv or .txt file')
 }
 
 if('antidep' %in% colnames(ad_pheno) == FALSE){

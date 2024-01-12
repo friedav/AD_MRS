@@ -59,12 +59,10 @@ if('AD_MRS' %in% colnames(MRS) == FALSE){
 
 # support phenotype .csv files or .txt files 
 
-if (endsWith(pheno_fp, '.csv')){
-  ad_pheno <- read.csv(pheno_fp, header = T)
-} else if (endsWith(pheno_fp, '.txt')) {
-  ad_pheno <- read.table(pheno_fp, header = T)
+if (any(endsWith(pheno_fp, c(".csv", ".tsv", ".txt")))){
+  ad_pheno <- fread(pheno_fp) %>% as.data.frame()
 } else {
-  stop('Unsupported phenotype file, please provide the phenotype as a .csv or .txt file')
+  stop('Unsupported phenotype file, please provide the phenotype as a .csv, .tsv or .txt file')
 }
 
 # check that there is an antidep column in the file 
@@ -86,7 +84,7 @@ print(paste0('Read in the Antidepressant exposure phenotype for ', cohort, ' : N
              nrow(ad_pheno%>% 
                     filter(antidep==0))))
 
-all_covs <- read.table(covs_fp, header = T) # 'GS_test_covs.txt', covariate file which has PCs in it
+all_covs <- fread(covs_fp) %>% as.data.frame() # 'GS_test_covs.txt', covariate file which has PCs in it
 
 print(paste0("Covariates read in ", paste(colnames(all_covs %>% dplyr::select(-all_of(id_col))), collapse = ", ")))
 

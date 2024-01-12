@@ -52,17 +52,15 @@ sink(file.path(outdir, paste0(cohort, "_MRS_demographics.log")))
 
 # read in file with additional demographic information for manuscript 
 
-demographics <- read.table(demo_fp, header = T)
-MRS <- read.table(MRS_fp, header = T)
+demographics <- fread(demo_fp) %>% as.data.frame()
+MRS <- fread(MRS_fp) %>% as.data.frame()
 
 # support phenotype .csv files or .txt files 
 
-if (endsWith(pheno_fp, '.csv')){
-  ad_pheno <- read.csv(pheno_fp, header = T)
-} else if (endsWith(pheno_fp, '.txt')) {
-  ad_pheno <- read.table(pheno_fp, header = T)
+if (any(endsWith(pheno_fp, c(".csv", ".tsv", ".txt")))){
+  ad_pheno <- fread(pheno_fp) %>% as.data.frame()
 } else {
-  stop('Unsupported phenotype file, please provide the phenotype as a .csv or .txt file')
+  stop('Unsupported phenotype file, please provide the phenotype as a .csv, .tsv or .txt file')
 }
 
 
