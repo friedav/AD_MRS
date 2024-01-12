@@ -47,7 +47,7 @@ print(paste0('Output to be saved in: ', outdir))
 
 ###############################################################################
 
-DNAm <- read_table(DNAm_fp) %>% as.data.frame()
+DNAm <- fread(DNAm_fp) %>% as.data.frame()
 print(paste0('The DNAm file has data for ', nrow(DNAm), ' participants and ', DNAm %>% select(starts_with("cg")) %>% ncol(), " CpG sites"))
 weights <- read.table(weights_fp, header = T) 
 print(paste0('The weights file has weights for ', nrow(weights), ' CpGs'))
